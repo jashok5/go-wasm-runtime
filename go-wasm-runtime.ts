@@ -1,59 +1,10 @@
+import { Process, GlobalThis } from './types'
+
 // 定义错误函数
 const enosys = (): Error => {
   const err = new Error('not implemented')
   ;(err as any).code = 'ENOSYS'
   return err
-}
-
-// 定义文件系统接口
-interface FileSystem {
-  constants: {
-    O_WRONLY: number
-    O_RDWR: number
-    O_CREAT: number
-    O_TRUNC: number
-    O_APPEND: number
-    O_EXCL: number
-    O_DIRECTORY: number
-  }
-  writeSync(fd: number, buf: Uint8Array): number
-  write(fd: number, buf: Uint8Array, offset: number, length: number, position: number | null, callback: (err: Error | null, written?: number) => void): void
-  chmod(path: string, mode: number, callback: (err: Error | null) => void): void
-  chown(path: string, uid: number, gid: number, callback: (err: Error | null) => void): void
-  close(fd: number, callback: (err: Error | null) => void): void
-  fchmod(fd: number, mode: number, callback: (err: Error | null) => void): void
-  fchown(fd: number, uid: number, gid: number, callback: (err: Error | null) => void): void
-  fstat(fd: number, callback: (err: Error | null) => void): void
-  fsync(fd: number, callback: (err: Error | null) => void): void
-  ftruncate(fd: number, length: number, callback: (err: Error | null) => void): void
-  lchown(path: string, uid: number, gid: number, callback: (err: Error | null) => void): void
-  link(path: string, link: string, callback: (err: Error | null) => void): void
-  lstat(path: string, callback: (err: Error | null) => void): void
-  mkdir(path: string, perm: number, callback: (err: Error | null) => void): void
-  open(path: string, flags: number, mode: number, callback: (err: Error | null) => void): void
-  read(fd: number, buffer: Uint8Array, offset: number, length: number, position: number | null, callback: (err: Error | null) => void): void
-  readdir(path: string, callback: (err: Error | null) => void): void
-  readlink(path: string, callback: (err: Error | null) => void): void
-  rename(from: string, to: string, callback: (err: Error | null) => void): void
-  rmdir(path: string, callback: (err: Error | null) => void): void
-  stat(path: string, callback: (err: Error | null) => void): void
-  symlink(path: string, link: string, callback: (err: Error | null) => void): void
-  truncate(path: string, length: number, callback: (err: Error | null) => void): void
-  unlink(path: string, callback: (err: Error | null) => void): void
-  utimes(path: string, atime: number, mtime: number, callback: (err: Error | null) => void): void
-}
-
-interface GlobalThis {
-  fs: FileSystem
-  process: Process
-  crypto: Crypto
-  path: {
-    // 定义简单的path接口
-    resolve(...pathSegments: string[]): string
-  }
-  performance: Performance
-  TextEncoder: TextEncoder
-  TextDecoder: TextDecoder
 }
 
 declare const globalThis: GlobalThis
@@ -82,92 +33,79 @@ if (!globalThis.fs) {
       const n = this.writeSync(fd, buf)
       callback(null, n)
     },
-    chmod: (path: string, mode: number, callback: (err: Error | null) => void) => {
-      enosys()
+    chmod(path: string, mode: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    chown: (path: string, uid: number, gid: number, callback: (err: Error | null) => void) => {
-      enosys()
+    chown(path: string, uid: number, gid: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    close: (fd: number, callback: (err: Error | null) => void) => {
-      enosys()
+    close(fd: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    fchmod: (fd: number, mode: number, callback: (err: Error | null) => void) => {
-      enosys()
+    fchmod(fd: number, mode: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    fchown: (fd: number, uid: number, gid: number, callback: (err: Error | null) => void) => {
-      enosys()
+    fchown(fd: number, uid: number, gid: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    fstat: (fd: number, callback: (err: Error | null) => void) => {
-      enosys()
+    fstat(fd: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    fsync: (fd: number, callback: (err: Error | null) => void) => {
-      enosys()
+    fsync(fd: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    ftruncate: (fd: number, length: number, callback: (err: Error | null) => void) => {
-      enosys()
+    ftruncate(fd: number, length: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    lchown: (path: string, uid: number, gid: number, callback: (err: Error | null) => void) => {
-      enosys()
+    lchown(path: string, uid: number, gid: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    link: (path: string, link: string, callback: (err: Error | null) => void) => {
-      enosys()
+    link(path: string, link: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    lstat: (path: string, callback: (err: Error | null) => void) => {
-      enosys()
+    lstat(path: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    mkdir: (path: string, perm: number, callback: (err: Error | null) => void) => {
-      enosys()
+    mkdir(path: string, perm: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    open: (path: string, flags: number, mode: number, callback: (err: Error | null) => void) => {
-      enosys()
+    open(path: string, flags: number, mode: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    read: (fd: number, buffer: Uint8Array, offset: number, length: number, position: number | null, callback: (err: Error | null) => void) => {
-      enosys()
+    read(fd: number, buffer: Uint8Array, offset: number, length: number, position: number | null, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    readdir: (path: string, callback: (err: Error | null) => void) => {
-      enosys()
+    readdir(path: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    readlink: (path: string, callback: (err: Error | null) => void) => {
-      enosys()
+    readlink(path: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    rename: (from: string, to: string, callback: (err: Error | null) => void) => {
-      enosys()
+    rename(from: string, to: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    rmdir: (path: string, callback: (err: Error | null) => void) => {
-      enosys()
+    rmdir(path: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    stat: (path: string, callback: (err: Error | null) => void) => {
-      enosys()
+    stat(path: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    symlink: (path: string, link: string, callback: (err: Error | null) => void) => {
-      enosys()
+    symlink(path: string, link: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    truncate: (path: string, length: number, callback: (err: Error | null) => void) => {
-      enosys()
+    truncate(path: string, length: number, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    unlink: (path: string, callback: (err: Error | null) => void) => {
-      enosys()
+    unlink(path: string, callback: (err: Error | null) => void) {
+      callback(null)
     },
-    utimes: (path: string, atime: number, mtime: number, callback: (err: Error | null) => void) => {
-      enosys()
+    utimes(path: string, atime: number, mtime: number, callback: (err: Error | null) => void) {
+      callback(null)
     }
   }
 }
 
 // 初始化全局进程对象
-interface Process {
-  getuid(): number
-  getgid(): number
-  geteuid(): number
-  getegid(): number
-  getGroups(): number[]
-  pid: number
-  ppid: number
-  umask(): number
-  cwd(): string
-  chdir(): void
-}
-
 if (!globalThis.process) {
   globalThis.process = {
     getuid() {
@@ -243,14 +181,14 @@ export class Go {
   private _exitPromise: Promise<void>
   private _resolveExitPromise!: () => void
   private _pendingEvent: GoEvent | null
-  private _scheduledTimeouts: Map<number, any>
+  private _scheduledTimeouts: Map<number, NodeJS.Timeout>
   private _nextCallbackTimeoutID: number
   private _inst?: WebAssembly.Instance
   private mem!: DataView
-  private _values?: any[]
-  private _goRefCounts?: number[]
-  private _ids?: Map<any, number>
-  private _idPool?: number[]
+  private _values?: any[] = []
+  private _goRefCounts?: number[] = []
+  private _ids?: Map<any, number> = new Map()
+  private _idPool?: number[] = []
   public exited: boolean
   public importObject: WebAssembly.Imports
 
@@ -615,7 +553,7 @@ export class Go {
 
   private _makeFuncWrapper(id: number): (...args: any[]) => any {
     const go = this
-    return function () {
+    return function (this: any) {
       const event: GoEvent = { id: id, this: this, args: arguments }
       go._pendingEvent = event
       go._resume()
